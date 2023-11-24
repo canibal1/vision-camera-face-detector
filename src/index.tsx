@@ -21,10 +21,10 @@ export type FaceDirection =
 
 type FaceDetectionErrorCode = 101 | 102 | 103 | 104 | 105 | 106 | 107;
 export type FaceDetectionStatus = 'success' | 'standby' | 'error';
-
+export type FaceDetectorStatus = 'startFaceDetector' | 'closeFaceDetector';
 export type FaceDetectorResponse = {
   status: FaceDetectionStatus;
-  faceDirection: FaceDirection;
+  faces: String;
   frameData?: string;
   error?: {
     code: FaceDetectionErrorCode;
@@ -34,12 +34,12 @@ export type FaceDetectorResponse = {
 
 const plugin = VisionCameraProxy.initFrameProcessorPlugin('detectFace', {});
 
-export function detectFace(frame: Frame): FaceDetectorResponse {
+export function detectFace(frame: Frame,status:FaceDetectorStatus,id:string): FaceDetectorResponse {
   'worklet';
   if (!plugin) {
     return {
       status: 'error',
-      faceDirection: 'unknown',
+      faces: 'unknown',
       error: {
         code: 102,
         message: 'Plugin not found',
@@ -47,5 +47,5 @@ export function detectFace(frame: Frame): FaceDetectorResponse {
     };
   }
   //@ts-ignore
-  return plugin.call(frame);
+  return plugin.call(frame, { "id": id,"status":status });
 }

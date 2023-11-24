@@ -12,6 +12,7 @@ import { Worklets } from 'react-native-worklets-core';
 import {
   FaceDetectionStatus,
   FaceDetectorResponse,
+  FaceDetectorStatus,
   detectFace,
 } from 'vision-camera-face-detector-plugin';
 
@@ -22,7 +23,8 @@ export default function App() {
   const [base64Frame, setBase64Frame] = useState<string>('');
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [status, setStatus] = useState<FaceDetectionStatus>('success');
-
+  const [detectorStatus, setDetectorStatus] = useState<FaceDetectorStatus>('startFaceDetector');
+  const id = (Date.now() * 1000).toString();
   const device = useCameraDevice('front');
   const { hasPermission, requestPermission } = useCameraPermission();
 
@@ -35,7 +37,7 @@ export default function App() {
         setSubmitting(false);
         setBase64Frame('');
         res('data ne');
-      }, 4000);
+      }, 2000);
     });
   };
 
@@ -51,6 +53,8 @@ export default function App() {
         }
         case 'success': {
           if (res.frameData) {
+            console.log(res.faces);
+
             submitSever(res.frameData);
           }
           break;
@@ -67,7 +71,7 @@ export default function App() {
       if (submitting) {
         return;
       }
-      const response = detectFace(frame);
+      const response = detectFace(frame, detectorStatus, id);
       onGetFaceDetectorResponse(response);
     },
     [submitting]
@@ -122,8 +126,8 @@ const styles = StyleSheet.create({
   },
 
   cameraContainer: {
-    width: CAMERA_SIZE,
-    height: CAMERA_SIZE,
+    width: 450,
+    height: 500,
     borderRadius: CAMERA_SIZE / 2,
     marginVertical: 24,
   },

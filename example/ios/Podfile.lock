@@ -547,12 +547,12 @@ PODS:
     - React-logger (= 0.72.6)
     - React-perflogger (= 0.72.6)
   - SocketRocket (0.6.1)
-  - VisionCamera (3.6.4):
+  - VisionCamera (3.6.6):
     - React
     - React-callinvoker
     - React-Core
     - react-native-worklets-core
-  - VisionCameraFaceDetectorPlugin (0.4.1):
+  - VisionCameraFaceDetectorPlugin (0.5.0):
     - GoogleMLKit/FaceDetection (= 3.2.0)
     - React-Core
     - VisionCamera
@@ -811,8 +811,8 @@ SPEC CHECKSUMS:
   React-utils: fa59c9a3375fb6f4aeb66714fd3f7f76b43a9f16
   ReactCommon: dd03c17275c200496f346af93a7b94c53f3093a4
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
-  VisionCamera: db57ca079c4f933f1ddd07f2f8fb2d171a826b85
-  VisionCameraFaceDetectorPlugin: 841bd2bc004230f659c6776a011fc6c347021301
+  VisionCamera: 47d2342b724c78fb9ff3e2607c21ceda4ba21e75
+  VisionCameraFaceDetectorPlugin: aeac742ca5abf1715c9a87a91791f9cfd3ef36a0
   Yoga: b76f1acfda8212aa16b7e26bcce3983230c82603
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
