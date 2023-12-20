@@ -168,22 +168,10 @@ public class VisionCameraFaceDetectorPlugin: FrameProcessorPlugin {
 
                    facesData.append(faceData)
                }
-
-               
-               let image = CIImage(cvPixelBuffer: imageBuffer)
-               let context = CIContext()
-               guard let cgImage = context.createCGImage(image, from: image.extent) else {
-                 self.setErrorResult(errorCode: 102, errorMessage: "Cannot get image from frame") //cannot get image from frame
-                 return
-               }
-               let uiImage = UIImage(cgImage: cgImage)
-               let imageData = uiImage.jpegData(compressionQuality: 100)
-               let frameData = imageData?.base64EncodedString()
            
                //set base64 FrameData to result
                self.result = ["status": "success",
-                              "faces": facesData,
-                              "frameData": frameData ?? ""]
+                              "faces": facesData.first?.values as Any]
          }
          return result
         
