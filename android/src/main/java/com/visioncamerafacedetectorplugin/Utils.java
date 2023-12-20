@@ -31,6 +31,7 @@ public class Utils {
     return FaceDirection.TRANSITIONING;
   }
     public static Bitmap convertImageToBitmap(InputImage image) {
+      try{
         Image.Plane[] planes = image.getPlanes();
         ByteBuffer yBuffer = planes[0].getBuffer();
         ByteBuffer uBuffer = planes[1].getBuffer();
@@ -57,6 +58,10 @@ public class Utils {
         Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
 
         return rotatedBitmap;
+      }
+      catch (Exception e){
+        return null;
+      }
     }
 
     public static boolean isFaceOutFrame(Rect faceBoundingBox, int frameWidth, int frameHeight){

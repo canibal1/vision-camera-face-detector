@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { StyleSheet, Text, SafeAreaView, View, Image } from 'react-native';
 import {
   Camera,
+  runAtTargetFps,
   useCameraDevice,
   useCameraPermission,
   useFrameProcessor,
@@ -23,11 +24,18 @@ export default function App() {
   const [base64Frame, setBase64Frame] = useState<string>('');
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [status, setStatus] = useState<FaceDetectionStatus>('success');
-  const [detectorStatus, setDetectorStatus] = useState<FaceDetectorStatus>('startFaceDetector');
+  const [detectorStatus, setDetectorStatus] = useState<FaceDetectorStatus>();
   const id = (Date.now() * 1000).toString();
   const device = useCameraDevice('front');
   const { hasPermission, requestPermission } = useCameraPermission();
 
+
+  const startFaceDetector = () => {
+    setDetectorStatus("startFaceDetector")
+  }
+  const stopFaceDetector = () => {
+    setDetectorStatus("closeFaceDetector")
+  }
   const submitSever = (frameData: string) => {
     setSubmitting(true);
     setErrMessage('');
@@ -71,8 +79,12 @@ export default function App() {
       if (submitting) {
         return;
       }
-      const response = detectFace(frame, detectorStatus, id);
-      onGetFaceDetectorResponse(response);
+      runAtTargetFps(10, () => {
+        'worklet'
+        const response = detectFace(frame, detectorStatus, id);
+        console.log(response);
+        onGetFaceDetectorResponse(response);
+      })
     },
     [submitting]
   );
@@ -114,6 +126,7 @@ export default function App() {
       <View style={styles.cameraContainer}>{renderCamera()}</View>
       {renderFrame()}
       <Text>{status === 'error' ? `Error: ${errMessage}` : status}</Text>
+      
     </SafeAreaView>
   );
 }
