@@ -1,25 +1,16 @@
 package com.visioncamerafacedetectorplugin;
 
-import android.graphics.Bitmap;
-import android.graphics.PointF;
-import android.graphics.Rect;
 import android.media.Image;
-import android.util.Base64;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.google.android.gms.tasks.Task;
-
-import com.google.android.gms.tasks.Tasks;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.face.Face;
-import com.google.mlkit.vision.face.FaceContour;
 import com.google.mlkit.vision.face.FaceDetection;
 import com.google.mlkit.vision.face.FaceDetector;
 import com.google.mlkit.vision.face.FaceDetectorOptions;
-import com.google.mlkit.vision.face.FaceLandmark;
 import com.mrousavy.camera.frameprocessor.Frame;
 import com.mrousavy.camera.frameprocessor.FrameProcessorPlugin;
 
@@ -125,7 +116,7 @@ public class VisionCameraFaceDetectorPlugin extends FrameProcessorPlugin {
               }
               faces.add(faceData);
             }
-            resultMap.put("faces", faces.get(0));
+            resultMap.put("faces", faces.get(0).toString());
             resultMap.put("status", FaceDetectionStatus.SUCCESS.name().toLowerCase());
             resultMap.put("error", null);
           } else {
