@@ -25,7 +25,6 @@ export type FaceDetectorStatus = 'startFaceDetector' | 'closeFaceDetector';
 export type FaceDetectorResponse = {
   status: FaceDetectionStatus;
   faces: String;
-  frameData?: string;
   error?: {
     code: FaceDetectionErrorCode;
     message: string;

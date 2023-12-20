@@ -125,7 +125,7 @@ public class VisionCameraFaceDetectorPlugin extends FrameProcessorPlugin {
               }
               faces.add(faceData);
             }
-            resultMap.put("faces", faces.toString());
+            resultMap.put("faces", faces.get(0));
             resultMap.put("status", FaceDetectionStatus.SUCCESS.name().toLowerCase());
             resultMap.put("error", null);
           } else {
